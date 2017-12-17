@@ -16,3 +16,5 @@
 /tags
 /tmp/*
 /yarn-error.log
+/.credentials
+/.credentials/*

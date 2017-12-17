@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215232501) do
+ActiveRecord::Schema.define(version: 20171217015821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.boolean "agreed_to_terms"
+    t.datetime "creation_time"
+    t.jsonb "emails"
+    t.string "gsuite_id"
+    t.boolean "is_admin"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "primary_email"
+    t.boolean "suspended"
+    t.string "suspension_reason"
+    t.string "thumbnail_photo_url"
+    t.string "aliases", array: true
+    t.string "is_mailbox_setup"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gsuite_id"], name: "index_accounts_on_gsuite_id", unique: true
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false

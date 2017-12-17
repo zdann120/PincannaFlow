@@ -69,3 +69,7 @@ gem 'slim-rails'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+
+gem 'googleauth'
+gem 'google-api-client'
+gem 'active_interaction'
