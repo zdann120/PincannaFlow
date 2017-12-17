@@ -10,7 +10,8 @@ table.table.table-sm
   tr
     th Emails
     td = account.emails.map{|e| e['address']}.join(', ')
-  tr
-    th Aliases
-    td = account.aliases.join(', ')
+  - unless account.aliases.blank?
+    tr
+      th Aliases
+      td = account.aliases.join(', ')
 
