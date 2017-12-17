@@ -1,0 +1,16 @@
+table.table.table-sm
+  - account = current_user.account
+  - account.slice(:first_name, :last_name,
+                                         :primary_email, :suspended,
+                                         :suspension_reason, :is_mailbox_setup,
+                                        ).each do |key, val|
+    tr
+      th = key.titleize
+      td = val
+  tr
+    th Emails
+    td = account.emails.map{|e| e['address']}.join(', ')
+  tr
+    th Aliases
+    td = account.aliases.join(', ')
+
