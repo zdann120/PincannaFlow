@@ -17,6 +17,7 @@ class User < ApplicationRecord
       user.token_expires_at = auth.credentials.expires_at
     end
     u.save
+    u
   end
 
   def self.new_with_session(params, session)
