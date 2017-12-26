@@ -8,11 +8,15 @@ class User < ApplicationRecord
   has_one :account, foreign_key: 'gsuite_id', primary_key: 'uid'
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    u = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name
+      user.refresh_token = auth.credentials.refresh_token
+      user.token = auth.credentials.token
+      user.token_expires_at = auth.credentials.expires_at
     end
+    u.save
   end
 
   def self.new_with_session(params, session)
