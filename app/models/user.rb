@@ -28,4 +28,26 @@ class User < ApplicationRecord
       end
     end
   end
+
+  def refresh!
+    refresh_token!
+  end
+
+  private
+
+  def refresh_token!
+    response = HTTParty.post("https://accounts.google.com/o/oauth2/token",
+                             body: {
+                               grant_type: 'refresh_token',
+                               client_id: ENV['GOOGLE_KEY'],
+                               client_secret: ENV['GOOGLE_SECRET'],
+                               refresh_token: refresh_token
+                             }
+                            )
+    response = JSON.parse(response.body)
+    update_attributes(
+      token: response["access_token"],
+      token_expires_at: Time.now + response["expires_in"].to_i.seconds
+    )
+  end
 end
