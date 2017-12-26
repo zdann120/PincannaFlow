@@ -14,7 +14,7 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.refresh_token = auth.credentials.refresh_token
       user.token = auth.credentials.token
-      user.token_expires_at = auth.credentials.expires_at
+      user.token_expires_at = DateTime.strptime(auth.credentials.expires_at.to_s,'%s')
       user.auth = auth
     end
     u.save
